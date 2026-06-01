@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>罗宇辰 - 游戏策划 | 个人简历</title>
+<style>
+/* ===== CSS Reset & Variables ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg-primary:#070b14;
+  --bg-secondary:#0c1120;
+  --bg-card:rgba(15,20,40,0.85);
+  --bg-card-hover:rgba(20,28,55,0.9);
+  --text-primary:#e8eaed;
+  --text-secondary:#9aa0b4;
+  --text-muted:#646a80;
+  --accent:#00d4aa;
+  --accent-glow:rgba(0,212,170,0.3);
+  --accent2:#7c5cfc;
+  --accent2-glow:rgba(124,92,252,0.3);
+  --border:rgba(255,255,255,0.06);
+  --border-light:rgba(255,255,255,0.12);
+  --radius:12px;
+  --radius-sm:8px;
+  --transition:0.3s cubic-bezier(0.4,0,0.2,1);
+  --font-mono:'SF Mono','Fira Code','Consolas',monospace;
+}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ===== Background Effects ===== */
+body::before{
+  content:'';
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:
+    radial-gradient(ellipse 800px 600px at 15% 0%, rgba(0,180,140,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 500px at 85% 100%, rgba(124,92,252,0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 300px at 50% 50%, rgba(0,212,170,0.03) 0%, transparent 70%);
+  pointer-events:none;z-index:0;
+}
+.grid-bg{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;z-index:0;
+}
+
+/* ===== Navigation ===== */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(7,11,20,0.75);
+  backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid var(--border);
+  transition:var(--transition);
+}
+.nav-inner{
+  max-width:1100px;margin:0 auto;padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:60px;
+}
+.nav-logo{font-size:1.15rem;font-weight:700;color:var(--accent);letter-spacing:0.5px}
+.nav-links{display:flex;gap:6px;list-style:none}
+.nav-links a{
+  color:var(--text-secondary);text-decoration:none;
+  padding:8px 14px;border-radius:var(--radius-sm);
+  font-size:0.875rem;font-weight:500;
+  transition:var(--transition);
+}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);background:rgba(0,212,170,0.08)}
+.nav-toggle{display:none;background:none;border:none;color:var(--text-primary);font-size:1.5rem;cursor:pointer}
+
+/* ===== Container ===== */
+.container{max-width:1100px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* ===== Sections ===== */
+section{padding:80px 0}
+section:first-of-type{padding-top:120px}
+
+/* ===== Hero ===== */
+.hero{text-align:center;padding:140px 0 80px}
+.hero-badge{
+  display:inline-block;padding:6px 18px;
+  border:1px solid var(--accent);border-radius:50px;
+  color:var(--accent);font-size:0.8rem;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:28px;
+  background:rgba(0,212,170,0.05);
+}
+.hero h1{
+  font-size:clamp(2.5rem,6vw,4.2rem);font-weight:800;
+  letter-spacing:-0.5px;line-height:1.15;
+  background:linear-gradient(135deg,#e8eaed 0%,var(--accent) 50%,var(--accent2) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:12px;
+}
+.hero .subtitle{
+  font-size:1.2rem;color:var(--text-secondary);font-weight:400;
+  margin-bottom:32px;letter-spacing:0.5px;
+}
+.hero-contact{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+}
+.hero-contact .tag{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 18px;
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:50px;font-size:0.85rem;
+  color:var(--text-secondary);
+  transition:var(--transition);
+}
+.hero-contact .tag:hover{border-color:var(--accent);color:var(--accent);background:rgba(0,212,170,0.06)}
+.hero-contact .tag .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent-glow)}
+
+/* ===== Section Header ===== */
+.section-header{margin-bottom:48px}
+.section-label{
+  display:inline-block;font-size:0.75rem;font-weight:700;
+  color:var(--accent);letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:10px;
+  padding:4px 12px;border:1px solid rgba(0,212,170,0.25);
+  border-radius:4px;background:rgba(0,212,170,0.04);
+}
+.section-header h2{
+  font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;
+  color:var(--text-primary);letter-spacing:-0.3px;
+}
+
+/* ===== Card ===== */
+.card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:32px;
+  margin-bottom:20px;
+  backdrop-filter:blur(10px);
+  transition:var(--transition);
+}
+.card:hover{border-color:var(--border-light);background:var(--bg-card-hover)}
+.card h3{font-size:1.15rem;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+.card .card-meta{font-size:0.85rem;color:var(--text-muted);margin-bottom:16px}
+
+/* ===== Highlight Card (Internship) ===== */
+.card-highlight{
+  background:var(--bg-card);border:1px solid rgba(0,212,170,0.2);
+  border-radius:var(--radius);padding:36px;
+  backdrop-filter:blur(10px);position:relative;
+  overflow:hidden;
+}
+.card-highlight::before{
+  content:'';position:absolute;top:0;left:0;width:4px;height:100%;
+  background:linear-gradient(180deg,var(--accent),var(--accent2));
+  border-radius:4px 0 0 4px;
+}
+.card-highlight h3{font-size:1.25rem;font-weight:700;color:var(--accent)}
+.card-highlight .card-meta{font-size:0.85rem;color:var(--text-muted);margin:6px 0 20px}
+.card-highlight .achieve-list{list-style:none}
+.card-highlight .achieve-list li{
+  position:relative;padding:10px 0 10px 22px;
+  color:var(--text-secondary);font-size:0.93rem;line-height:1.7;
+  border-bottom:1px solid var(--border);
+}
+.card-highlight .achieve-list li:last-child{border-bottom:none}
+.card-highlight .achieve-list li::before{
+  content:'';
+  position:absolute;left:0;top:17px;width:8px;height:8px;
+  border-radius:50%;background:var(--accent);
+  box-shadow:0 0 8px var(--accent-glow);
+}
+
+/* ===== Skills ===== */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.skill-item{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:24px;
+  display:flex;align-items:flex-start;gap:16px;
+  transition:var(--transition);
+}
+.skill-item:hover{border-color:var(--border-light)}
+.skill-num{
+  font-size:2rem;font-weight:800;color:var(--accent);
+  line-height:1;min-width:40px;opacity:0.7;
+}
+.skill-text h4{font-size:0.95rem;font-weight:600;color:var(--text-primary);margin-bottom:4px}
+.skill-text p{font-size:0.83rem;color:var(--text-muted);line-height:1.55}
+
+/* ===== Works ===== */
+.works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.work-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:24px;
+  text-decoration:none;color:inherit;
+  transition:var(--transition);display:block;
+}
+.work-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+.work-card h4{font-size:0.95rem;font-weight:600;color:var(--text-primary);margin-bottom:6px}
+.work-card .work-link{font-size:0.8rem;color:var(--accent);word-break:break-all;font-family:var(--font-mono)}
+
+/* ===== Game Accordion ===== */
+.game-section{margin-bottom:8px}
+.game-category{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius-sm);overflow:hidden;
+  transition:var(--transition);
+}
+.game-category-header{
+  padding:18px 24px;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;
+  user-select:none;
+  transition:var(--transition);
+}
+.game-category-header:hover{background:rgba(255,255,255,0.02)}
+.game-category-header h3{
+  font-size:1rem;font-weight:600;color:var(--text-primary);
+  display:flex;align-items:center;gap:10px;
+}
+.game-category-header .icon{font-size:1.3rem}
+.game-category-header .count{
+  font-size:0.78rem;color:var(--text-muted);
+  background:rgba(255,255,255,0.04);padding:3px 10px;border-radius:50px;
+}
+.game-category-header .arrow{
+  font-size:0.7rem;color:var(--text-muted);
+  transition:transform var(--transition);
+}
+.game-category.open .game-category-header .arrow{transform:rotate(180deg)}
+.game-category-body{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.game-category.open .game-category-body{max-height:2000px}
+.game-table-wrap{padding:0 24px 20px}
+.game-table{
+  width:100%;border-collapse:collapse;
+  font-size:0.85rem;
+}
+.game-table th{
+  text-align:left;padding:10px 12px;
+  color:var(--text-muted);font-weight:500;font-size:0.75rem;
+  text-transform:uppercase;letter-spacing:1px;
+  border-bottom:1px solid var(--border);
+}
+.game-table td{
+  padding:10px 12px;color:var(--text-secondary);
+  border-bottom:1px solid var(--border);
+}
+.game-table tr:last-child td{border-bottom:none}
+.game-table td:first-child{color:var(--text-primary);font-weight:500}
+.game-table tr:hover td{background:rgba(255,255,255,0.015)}
+
+/* ===== About ===== */
+.about-text{
+  font-size:1rem;color:var(--text-secondary);line-height:1.85;
+  max-width:800px;
+}
+.about-text p{margin-bottom:12px}
+.about-text p:last-child{margin-bottom:0}
+
+/* ===== Footer ===== */
+.footer{
+  text-align:center;padding:48px 0;
+  border-top:1px solid var(--border);
+  color:var(--text-muted);font-size:0.82rem;
+}
+
+/* ===== Responsive ===== */
+@media(max-width:768px){
+  .nav-links{display:none;position:absolute;top:60px;left:0;right:0;
+    background:rgba(7,11,20,0.95);flex-direction:column;
+    padding:12px;gap:2px;border-bottom:1px solid var(--border);
+    backdrop-filter:blur(20px);
+  }
+  .nav-links.show{display:flex}
+  .nav-toggle{display:block}
+  .hero{padding:100px 0 60px}
+  .hero h1{font-size:2.2rem}
+  section{padding:50px 0}
+  .card,.card-highlight{padding:24px}
+  .skills-grid{grid-template-columns:1fr}
+  .works-grid{grid-template-columns:1fr}
+  .game-table-wrap{overflow-x:auto}
+  .game-table{min-width:500px}
+}
+
+/* ===== Animations ===== */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.animate{animation:fadeUp 0.6s ease forwards}
+.animate-d2{animation-delay:0.1s;opacity:0;animation-fill-mode:forwards}
+.animate-d3{animation-delay:0.2s;opacity:0;animation-fill-mode:forwards}
+.animate-d4{animation-delay:0.3s;opacity:0;animation-fill-mode:forwards}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">LYC</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">关于我</a></li>
+      <li><a href="#education">教育</a></li>
+      <li><a href="#internship">实习</a></li>
+      <li><a href="#works">作品</a></li>
+      <li><a href="#skills">技能</a></li>
+      <li><a href="#games">游戏</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">&#9776;</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-badge">Game Designer</div>
+    <h1>罗宇辰</h1>
+    <p class="subtitle">游戏策划 · 系统/战斗策划方向</p>
+    <div class="hero-contact">
+      <span class="tag"><span class="dot"></span> 26届本科</span>
+      <span class="tag"><span class="dot"></span> 安徽合肥</span>
+      <span class="tag"><span class="dot"></span> 18043126176</span>
+      <span class="tag"><span class="dot"></span> 114667669@qq.com</span>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">About</div>
+      <h2>关于我</h2>
+    </div>
+    <div class="about-text">
+      <p>游戏涉猎广泛且经验深厚，痴迷各类游戏玩法，对游戏设计抱有极高热情与探索欲。</p>
+      <p>具备优秀的沟通表达能力，擅长与团队成员高效协作、和睦共处。逻辑思维缜密，善于洞察并高效解决问题，做事严谨有责任心。</p>
+      <p>具备良好抗压能力，可快速适应陌生环境与高强度任务节奏。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Education -->
+<section id="education">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Education</div>
+      <h2>教育背景</h2>
+    </div>
+    <div class="card">
+      <h3>长春工程学院</h3>
+      <p class="card-meta">城市地下空间工程 · 2022.09 — 2026.06</p>
+      <p style="color:var(--text-secondary);font-size:0.93rem">2026届本科应届毕业生</p>
+    </div>
+  </div>
+</section>
+
+<!-- Internship -->
+<section id="internship">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Experience</div>
+      <h2>实习经历</h2>
+    </div>
+    <div class="card-highlight">
+      <h3>合肥瑞麟互娱网络科技有限公司</h3>
+      <p class="card-meta">游戏策划实习生 · 2026.03 — 至今 · 参与项目《雷鸣争霸》（SLG手游）</p>
+      <ul class="achieve-list">
+        <li>独立负责灯塔、商店、体力、集结核心系统全流程设计及联盟系统功能补全工作，撰写4套全流程策划文档（含功能设计、交互逻辑、美术需求、配置表），文档评审通过率<strong style="color:var(--accent)">100%</strong>。</li>
+        <li>跟进程序开发全周期，每周同步进度，完成3轮功能验收，推动整改问题，支撑游戏日活留存相关的核心循环，无重大BUG。</li>
+        <li>针对原英雄技能配置表字段冗余、关联混乱的问题，重构配置表逻辑，优化字段，统一数据格式，使后续技能迭代的配置错误率降为<strong style="color:var(--accent)">0</strong>，提升维护效率。</li>
+        <li>独立完成<strong style="color:var(--accent)">2个</strong>差异化英雄角色的策划设计，明确角色定位、技能循环与核心机制，输出完整角色策划文档与美术需求；对接美术团队跟进资源制作，核对形象与技能特效还原度，角色设计通过评审并顺利落地。</li>
+        <li>参与Demo版本全流程测试，提交有效BUG及优化需求<strong style="color:var(--accent)">89条</strong>，跟进修复测试，高优先级问题修复率<strong style="color:var(--accent)">100%</strong>，保障版本质量。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Works -->
+<section id="works">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Portfolio</div>
+      <h2>个人作品</h2>
+    </div>
+    <div class="works-grid">
+      <a class="work-card" href="https://www.kdocs.cn/l/cnfJLWQwEg2t" target="_blank" rel="noopener">
+        <h4>装备系统策划案</h4>
+        <span class="work-link">kdocs.cn/l/cnfJLWQwEg2t</span>
+      </a>
+      <a class="work-card" href="https://www.kdocs.cn/l/cocl0CMJBYZV" target="_blank" rel="noopener">
+        <h4>集结系统策划案</h4>
+        <span class="work-link">kdocs.cn/l/cocl0CMJBYZV</span>
+      </a>
+      <a class="work-card" href="https://www.kdocs.cn/l/ctyhaqtH2p83" target="_blank" rel="noopener">
+        <h4>商店系统策划案</h4>
+        <span class="work-link">kdocs.cn/l/ctyhaqtH2p83</span>
+      </a>
+      <a class="work-card" href="https://www.kdocs.cn/l/ciwICWZxs9LH" target="_blank" rel="noopener">
+        <h4>双生子-瑟拉角色策划案</h4>
+        <span class="work-link">kdocs.cn/l/ciwICWZxs9LH</span>
+      </a>
+      <a class="work-card" href="https://www.kdocs.cn/l/cfhqwyuBxxHK" target="_blank" rel="noopener">
+        <h4>双生子-伊娜角色策划案</h4>
+        <span class="work-link">kdocs.cn/l/cfhqwyuBxxHK</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Skills</div>
+      <h2>个人技能</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <div class="skill-num">01</div>
+        <div class="skill-text">
+          <h4>系统策划文档撰写</h4>
+          <p>配合项目需求完成系统策划案撰写，包括功能逻辑、界面交互、美术需求及配置表制作，确保内容清晰可执行。</p>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-num">02</div>
+        <div class="skill-text">
+          <h4>Xmind 逻辑框架</h4>
+          <p>熟练使用 Xmind 搭建系统逻辑框架，梳理玩法流程与模块关联，输出清晰的策划逻辑导图。</p>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-num">03</div>
+        <div class="skill-text">
+          <h4>Axure 交互原型</h4>
+          <p>熟练使用 Axure 制作高保真界面交互原型，还原UI交互逻辑与跳转流程，为美术、程序开发提供直观参考标准。</p>
+        </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-num">04</div>
+        <div class="skill-text">
+          <h4>游戏测试与品质把控</h4>
+          <p>熟悉游戏功能/交互/玩法测试流程，可独立排查问题、提交BUG并跟进修复闭环。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Games -->
+<section id="games">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Gaming</div>
+      <h2>游戏经历</h2>
+    </div>
+
+    <!-- 射击类 -->
+    <div class="game-section">
+      <div class="game-category open">
+        <div class="game-category-header" onclick="this.parentElement.classList.toggle('open')">
+          <h3><span class="icon">&#128299;</span>射击类</h3>
+          <span class="count">5 款</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="game-category-body">
+          <div class="game-table-wrap">
+            <table class="game-table">
+              <thead><tr><th>游戏</th><th>时长</th><th>氪金</th><th>成就</th></tr></thead>
+              <tbody>
+                <tr><td>Counter-Strike 2</td><td>1127h</td><td>2000￥</td><td>完美竞技平台天梯A+段位；5e平台2000分</td></tr>
+                <tr><td>Apex Legends</td><td>845h</td><td>580￥</td><td>S16/S17钻石段位；疯马吉"双锤"成就</td></tr>
+                <tr><td>命运2</td><td>1032h</td><td>600￥</td><td>全主线+三职业分支任务完成</td></tr>
+                <tr><td>三角洲行动</td><td>600h</td><td>1000￥</td><td>绝密地图KD3.7；战损比2.1</td></tr>
+                <tr><td>PUBG</td><td>374h</td><td>500￥</td><td>匹配KD6</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBA -->
+    <div class="game-section">
+      <div class="game-category">
+        <div class="game-category-header" onclick="this.parentElement.classList.toggle('open')">
+          <h3><span class="icon">&#9876;&#65039;</span>MOBA</h3>
+          <span class="count">3 款</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="game-category-body">
+          <div class="game-table-wrap">
+            <table class="game-table">
+              <thead><tr><th>游戏</th><th>场次/时长</th><th>氪金</th><th>成就</th></tr></thead>
+              <tbody>
+                <tr><td>英雄联盟</td><td>3586场</td><td>1500￥</td><td>生涯等级202；S13/S14/S15黄金段位</td></tr>
+                <tr><td>王者荣耀</td><td>2024场</td><td>2000￥</td><td>S18荣耀王者；S19~S23最强王者</td></tr>
+                <tr><td>云顶之弈</td><td>4398场</td><td>500￥</td><td>S9大师/S10王者/S11宗师/S16大师</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 策略类 -->
+    <div class="game-section">
+      <div class="game-category">
+        <div class="game-category-header" onclick="this.parentElement.classList.toggle('open')">
+          <h3><span class="icon">&#128081;</span>策略类</h3>
+          <span class="count">10 款</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="game-category-body">
+          <div class="game-table-wrap">
+            <table class="game-table">
+              <thead><tr><th>游戏</th><th>时长</th><th>氪金</th><th>成就</th></tr></thead>
+              <tbody>
+                <tr><td>红色警戒3</td><td>400h</td><td>/</td><td>三阵营主线全通关</td></tr>
+                <tr><td>帝国时代2：征服者</td><td>100h</td><td>/</td><td>全剧情战役通关</td></tr>
+                <tr><td>红色警戒2：尤里的复仇</td><td>200h</td><td>/</td><td>主线剧情全通关</td></tr>
+                <tr><td>魔兽争霸3：冰封王座</td><td>500h</td><td>/</td><td>主线剧情全通关</td></tr>
+                <tr><td>部落冲突</td><td>300h</td><td>500￥</td><td>传奇联赛段位</td></tr>
+                <tr><td>海岛奇兵</td><td>200h</td><td>/</td><td>司令部12级</td></tr>
+                <tr><td>皇室战争</td><td>5年</td><td>300￥</td><td>竞技场7800杯</td></tr>
+                <tr><td>无尽冬日</td><td>500h</td><td>1000￥</td><td>王国争夺战；战力4000w，竞技场前100</td></tr>
+                <tr><td>三国：天下归心</td><td>100h</td><td>/</td><td>蜀国统一地图，武将全收集</td></tr>
+                <tr><td>梦境护卫队</td><td>100h</td><td>/</td><td>主线剧情15章，全角色收集</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 动作类 -->
+    <div class="game-section">
+      <div class="game-category">
+        <div class="game-category-header" onclick="this.parentElement.classList.toggle('open')">
+          <h3><span class="icon">&#128481;&#65039;</span>动作类</h3>
+          <span class="count">8 款</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="game-category-body">
+          <div class="game-table-wrap">
+            <table class="game-table">
+              <thead><tr><th>游戏</th><th>时长</th><th>氪金</th><th>成就</th></tr></thead>
+              <tbody>
+                <tr><td>鬼泣3/4/5</td><td>500h</td><td>/</td><td>主线剧情全难度通关</td></tr>
+                <tr><td>忍者神龟2003</td><td>50h</td><td>/</td><td>主线剧情通关</td></tr>
+                <tr><td>真三国无双4</td><td>100h</td><td>/</td><td>全人物剧情；稀有道具/马匹全收集</td></tr>
+                <tr><td>真三国无双5</td><td>500h</td><td>/</td><td>全人物收集+剧情通关</td></tr>
+                <tr><td>真三国无双7：猛将传</td><td>200h</td><td>/</td><td>全剧情通关</td></tr>
+                <tr><td>真三国无双8：起源</td><td>200h</td><td>/</td><td>三阵营全剧情+全成就</td></tr>
+                <tr><td>黑神话：悟空</td><td>100h</td><td>/</td><td>全成就+双结局通关</td></tr>
+                <tr><td>火影忍者手游</td><td>2年</td><td>1108￥</td><td>段位赛达"影"段位</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MMORPG -->
+    <div class="game-section">
+      <div class="game-category">
+        <div class="game-category-header" onclick="this.parentElement.classList.toggle('open')">
+          <h3><span class="icon">&#127760;</span>MMORPG</h3>
+          <span class="count">2 款</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="game-category-body">
+          <div class="game-table-wrap">
+            <table class="game-table">
+              <thead><tr><th>游戏</th><th>时长</th><th>氪金</th><th>成就</th></tr></thead>
+              <tbody>
+                <tr><td>剑网3</td><td>2年</td><td>2000￥</td><td>挑战试炼出"双会黄字"暗器（价值5000￥）</td></tr>
+                <tr><td>逆水寒手游</td><td>1年</td><td>1000￥</td><td>3赛季副本团长；公平竞技S1/S2传说</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 卡牌类 -->
+    <div class="game-section">
+      <div class="game-category">
+        <div class="game-category-header" onclick="this.parentElement.classList.toggle('open')">
+          <h3><span class="icon">&#127183;</span>卡牌类</h3>
+          <span class="count">2 款</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="game-category-body">
+          <div class="game-table-wrap">
+            <table class="game-table">
+              <thead><tr><th>游戏</th><th>时长</th><th>氪金</th><th>成就</th></tr></thead>
+              <tbody>
+                <tr><td>炉石传说</td><td>2年</td><td>200￥</td><td>1赛季"传说"段位</td></tr>
+                <tr><td>三国杀</td><td>300h</td><td>300￥</td><td>累计100场身份局胜利</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 生存类 -->
+    <div class="game-section">
+      <div class="game-category">
+        <div class="game-category-header" onclick="this.parentElement.classList.toggle('open')">
+          <h3><span class="icon">&#127748;</span>生存类</h3>
+          <span class="count">3 款</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="game-category-body">
+          <div class="game-table-wrap">
+            <table class="game-table">
+              <thead><tr><th>游戏</th><th>时长</th><th>氪金</th><th>成就</th></tr></thead>
+              <tbody>
+                <tr><td>我的世界</td><td>300h</td><td>/</td><td>击杀末影龙；暮光森林全BOSS击杀</td></tr>
+                <tr><td>The Forest</td><td>50h</td><td>/</td><td>主线剧情完成</td></tr>
+                <tr><td>Raft</td><td>50h</td><td>/</td><td>主线剧情完成</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 模拟经营 -->
+    <div class="game-section">
+      <div class="game-category">
+        <div class="game-category-header" onclick="this.parentElement.classList.toggle('open')">
+          <h3><span class="icon">&#127960;&#65039;</span>模拟经营</h3>
+          <span class="count">1 款</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="game-category-body">
+          <div class="game-table-wrap">
+            <table class="game-table">
+              <thead><tr><th>游戏</th><th>时长</th><th>氪金</th><th>成就</th></tr></thead>
+              <tbody>
+                <tr><td>城市天际线</td><td>50h</td><td>/</td><td>完成10个模块城市建造并稳定运营</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2026 罗宇辰 &mdash; 个人简历</p>
+  </div>
+</footer>
+
+<script>
+// Mobile nav toggle
+document.getElementById('navToggle').addEventListener('click',function(){
+  document.getElementById('navLinks').classList.toggle('show');
+});
+
+// Close mobile nav on link click
+document.querySelectorAll('#navLinks a').forEach(function(link){
+  link.addEventListener('click',function(){
+    document.getElementById('navLinks').classList.remove('show');
+  });
+});
+
+// Active nav link on scroll
+window.addEventListener('scroll',function(){
+  var sections=document.querySelectorAll('section[id]');
+  var navLinks=document.querySelectorAll('#navLinks a');
+  var scrollY=window.pageYOffset;
+  sections.forEach(function(section){
+    var sectionHeight=section.offsetHeight;
+    var sectionTop=section.offsetTop-100;
+    var sectionId=section.getAttribute('id');
+    if(scrollY>sectionTop && scrollY<=sectionTop+sectionHeight){
+      navLinks.forEach(function(link){
+        link.classList.remove('active');
+        if(link.getAttribute('href')==='#'+sectionId) link.classList.add('active');
+      });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
